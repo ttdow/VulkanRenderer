@@ -884,6 +884,12 @@
     <ClInclude Include="src\HelloTriangleApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\glm\detail\func_common.inl">
@@ -1301,5 +1307,26 @@
     </None>
     <None Include="shaders\frag.spv" />
     <None Include="shaders\vert.spv" />
+    <None Include="res\shaders\compile.bat">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="res\shaders\frag.spv" />
+    <None Include="res\shaders\shader.frag" />
+    <None Include="res\shaders\shader.vert" />
+    <None Include="res\shaders\vert.spv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="textures\texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="textures\viking_room.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\viking_room.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\texture.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

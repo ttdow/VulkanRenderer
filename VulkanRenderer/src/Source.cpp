@@ -1,3 +1,6 @@
+#define STB_IMAGE_IMPLEMENTATION
+#define TINYOBJLOADER_IMPLEMENTATION
+
 #include "HelloTriangleApplication.h"
 
 #include <iostream>
