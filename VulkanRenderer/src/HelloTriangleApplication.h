@@ -13,6 +13,11 @@
 #include <stb_image.h>
 #include <tiny_obj_loader.h>
 
+#include "VulkanInstance.h"
+#include "Surface.h"
+#include "PhysicalDevice.h"
+#include "LogicalDevice.h"
+
 #include <iostream>
 #include <stdexcept>
 #include <vector>
@@ -34,38 +39,9 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 const std::string MODEL_PATH = "res/models/viking_room.obj";
 const std::string TEXTURE_PATH = "res/textures/viking_room.png";
 
-const std::vector<const char*> validationLayers =
-{
-	"VK_LAYER_KHRONOS_validation"
-};
-
 const std::vector<const char*> deviceExtensions =
 {
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
-};
-
-#ifdef NDEBUG
-const bool enableValidationLayers = false;
-#else
-const bool enableValidationLayers = true;
-#endif
-
-struct QueueFamilyIndices
-{
-	std::optional<uint32_t> graphicsFamily;
-	std::optional<uint32_t> presentFamily;
-
-	bool IsComplete()
-	{
-		return graphicsFamily.has_value() && presentFamily.has_value();
-	}
-};
-
-struct SwapChainSupportDetails
-{
-	VkSurfaceCapabilitiesKHR capabilities;
-	std::vector<VkSurfaceFormatKHR> formats;
-	std::vector<VkPresentModeKHR> presentModes;
 };
 
 struct Vertex
@@ -123,27 +99,6 @@ namespace std
 	};
 }
 
-/*
-const std::vector<Vertex> vertices = 
-{
-	{{-0.5f, -0.5f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-	{{0.5f, -0.5f, 0.0f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
-	{{0.5f, 0.5f, 0.0f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
-	{{-0.5f, 0.5f, 0.0f}, {1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}},
-
-	{{-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f}, {0.0f, 0.0f}},
-	{{0.5f, -0.5f, -0.5f}, {0.0f, 1.0f, 0.0f}, {1.0f, 0.0f}},
-	{{0.5f, 0.5f, -0.5f}, {0.0f, 0.0f, 1.0f}, {1.0f, 1.0f}},
-	{{-0.5f, 0.5f, -0.5f}, {1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}
-};
-
-const std::vector<uint16_t> indices = 
-{
-	0, 1, 2, 2, 3, 0,
-	4, 5, 6, 6, 7, 4
-};
-*/
-
 struct UniformBufferObject
 {
 	alignas(16) glm::mat4 model;
@@ -165,12 +120,15 @@ public:
 
 private:
 
+	VulkanInstance* vulkanInstance;
+	Surface* surface;
+	PhysicalDevice* physicalDevice;
+	LogicalDevice* logicalDevice;
+
+private:
+
 	GLFWwindow* window;
 
-	VkInstance instance;
-	VkSurfaceKHR surface;
-
-	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	VkDevice device;
 
 	VkQueue graphicsQueue;
@@ -227,11 +185,6 @@ private:
 
 	void InitWindow();
 	void InitVulkan();
-	void CreateInstance();
-	bool CheckValidationLayerSupport();
-	void CreateSurface();
-	std::vector<const char*> GetRequiredExtensions();
-	void PickPhysicalDevice();
 	void CreateLogicalDevice();
 	void CreateSwapChain();
 	void CreateImageViews();
@@ -258,11 +211,6 @@ private:
 	void RecreateSwapChain();
 
 	// Helper functions.
-	bool IsDeviceSuitable(VkPhysicalDevice device);
-	int RateDeviceSuitability(VkPhysicalDevice device);
-	bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
-	QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device);
-	SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
 	VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 	VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
 	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);

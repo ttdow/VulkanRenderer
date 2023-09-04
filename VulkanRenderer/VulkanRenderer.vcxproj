@@ -165,7 +165,10 @@
   <ItemGroup>
     <ClCompile Include="inc\glm\detail\glm.cpp" />
     <ClCompile Include="src\HelloTriangleApplication.cpp" />
+    <ClCompile Include="src\PhysicalDevice.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Surface.cpp" />
+    <ClCompile Include="src\VulkanInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glfw3.lib" />
@@ -458,6 +461,9 @@
     <ClInclude Include="inc\stb_image.h" />
     <ClInclude Include="inc\tiny_obj_loader.h" />
     <ClInclude Include="src\HelloTriangleApplication.h" />
+    <ClInclude Include="src\PhysicalDevice.h" />
+    <ClInclude Include="src\Surface.h" />
+    <ClInclude Include="src\VulkanInstance.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="inc\glm\detail\func_common.inl" />
