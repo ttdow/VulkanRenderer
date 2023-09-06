@@ -164,10 +164,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="inc\glm\detail\glm.cpp" />
+    <ClCompile Include="src\DescriptorSetLayout.cpp" />
     <ClCompile Include="src\HelloTriangleApplication.cpp" />
+    <ClCompile Include="src\Image.cpp" />
+    <ClCompile Include="src\LogicalDevice.cpp" />
     <ClCompile Include="src\PhysicalDevice.cpp" />
+    <ClCompile Include="src\RenderPass.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\Surface.cpp" />
+    <ClCompile Include="src\SwapChain.cpp" />
     <ClCompile Include="src\VulkanInstance.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -460,9 +465,14 @@
     <ClInclude Include="inc\glm\vector_relational.hpp" />
     <ClInclude Include="inc\stb_image.h" />
     <ClInclude Include="inc\tiny_obj_loader.h" />
+    <ClInclude Include="src\DescriptorSetLayout.h" />
     <ClInclude Include="src\HelloTriangleApplication.h" />
+    <ClInclude Include="src\Image.h" />
+    <ClInclude Include="src\LogicalDevice.h" />
     <ClInclude Include="src\PhysicalDevice.h" />
+    <ClInclude Include="src\RenderPass.h" />
     <ClInclude Include="src\Surface.h" />
+    <ClInclude Include="src\SwapChain.h" />
     <ClInclude Include="src\VulkanInstance.h" />
   </ItemGroup>
   <ItemGroup>

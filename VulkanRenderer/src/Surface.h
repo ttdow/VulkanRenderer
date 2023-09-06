@@ -9,11 +9,10 @@
 
 #include <iostream>
 
+// Represents a surface that can be drawn to (platform specific).
 class Surface
 {
 public:
-
-	VkSurfaceKHR surface;
 
 	Surface(VulkanInstance* instance, GLFWwindow* window);
 	~Surface();
@@ -22,5 +21,6 @@ public:
 
 private:
 
+	VkSurfaceKHR surface;
 	VulkanInstance* instance;
 };

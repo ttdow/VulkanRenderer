@@ -17,6 +17,10 @@
 #include "Surface.h"
 #include "PhysicalDevice.h"
 #include "LogicalDevice.h"
+#include "SwapChain.h"
+#include "Image.h"
+#include "RenderPass.h"
+#include "DescriptorSetLayout.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -38,11 +42,6 @@ const int MAX_FRAMES_IN_FLIGHT = 2;
 
 const std::string MODEL_PATH = "res/models/viking_room.obj";
 const std::string TEXTURE_PATH = "res/textures/viking_room.png";
-
-const std::vector<const char*> deviceExtensions =
-{
-	VK_KHR_SWAPCHAIN_EXTENSION_NAME
-};
 
 struct Vertex
 {
@@ -124,25 +123,15 @@ private:
 	Surface* surface;
 	PhysicalDevice* physicalDevice;
 	LogicalDevice* logicalDevice;
+	SwapChain* swapChain;
+	RenderPass* renderPass;
+	DescriptorSetLayout* descriptorSetLayout;
 
 private:
 
 	GLFWwindow* window;
 
-	VkDevice device;
-
-	VkQueue graphicsQueue;
-	VkQueue presentQueue;
-
-	VkSwapchainKHR swapChain;
-	std::vector<VkImage> swapChainImages;
-	VkFormat swapChainImageFormat;
-	VkExtent2D swapChainExtent;
-
-	std::vector<VkImageView> swapChainImageViews;
-
-	VkRenderPass renderPass;
-	VkDescriptorSetLayout descriptorSetLayout;
+	//VkDescriptorSetLayout descriptorSetLayout;
 	VkPipelineLayout pipelineLayout;
 	VkPipeline graphicsPipeline;
 
@@ -185,11 +174,7 @@ private:
 
 	void InitWindow();
 	void InitVulkan();
-	void CreateLogicalDevice();
-	void CreateSwapChain();
-	void CreateImageViews();
-	void CreateRenderPass();
-	void CreateDescriptorSetLayout();
+	//void CreateDescriptorSetLayout();
 	void CreateGraphicsPipeline();
 	void CreateFramebuffers();
 	void CreateCommandPool();
@@ -211,9 +196,6 @@ private:
 	void RecreateSwapChain();
 
 	// Helper functions.
-	VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
-	VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
-	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 	static std::vector<char> ReadFile(const std::string& filename);
 	VkShaderModule CreateShaderModule(const std::vector<char>& code);
 	static void FramebufferResizeCallback(GLFWwindow* window, int width, int height);
@@ -225,9 +207,6 @@ private:
 	void EndSingleTimeCommands(VkCommandBuffer commandBuffer);
 	void TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 	void CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
-	VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags);
-	VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags flags);
-	VkFormat FindDepthFormat();
 	bool HasStencilComponent(VkFormat format);
 
 	void MainLoop();

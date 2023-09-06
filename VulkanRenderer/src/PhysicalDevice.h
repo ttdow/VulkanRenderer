@@ -3,6 +3,7 @@
 #include <vulkan/vulkan.h>
 
 #include "VulkanInstance.h"
+#include "Surface.h"
 
 #include <iostream>
 #include <map>
@@ -38,7 +39,7 @@ public:
 		VK_KHR_SWAPCHAIN_EXTENSION_NAME
 	};
 
-	PhysicalDevice(VulkanInstance* vulkanInstance, VkSurfaceKHR* surface);
+	PhysicalDevice(VulkanInstance* vulkanInstance, Surface* surface);
 	~PhysicalDevice();
 
 	VkPhysicalDevice Get();
@@ -50,7 +51,7 @@ public:
 private:
 
 	VkPhysicalDevice physicalDevice;
-	VkSurfaceKHR* surface;
+	Surface* surface;
 
 	int RateDeviceSuitability(VkPhysicalDevice device);
 	bool CheckDeviceExtensionSupport(VkPhysicalDevice device);

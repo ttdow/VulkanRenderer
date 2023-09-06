@@ -1,6 +1,6 @@
 #include "PhysicalDevice.h"
 
-PhysicalDevice::PhysicalDevice(VulkanInstance* vulkanInstance, VkSurfaceKHR* surface)
+PhysicalDevice::PhysicalDevice(VulkanInstance* vulkanInstance, Surface* surface)
 {
 	this->surface = surface;
 	this->physicalDevice = VK_NULL_HANDLE;
@@ -137,7 +137,7 @@ QueueFamilyIndices PhysicalDevice::FindQueueFamilies(VkPhysicalDevice device)
 		}
 
 		VkBool32 presentSupport = false;
-		vkGetPhysicalDeviceSurfaceSupportKHR(device, i, *this->surface, &presentSupport);
+		vkGetPhysicalDeviceSurfaceSupportKHR(device, i, *this->surface->Get(), &presentSupport);
 
 		if (presentSupport)
 		{
@@ -159,22 +159,22 @@ SwapChainSupportDetails PhysicalDevice::QuerySwapChainSupport(VkPhysicalDevice d
 {
 	SwapChainSupportDetails details;
 	
-	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, *this->surface, &details.capabilities);
+	vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, *this->surface->Get(), &details.capabilities);
 
 	uint32_t formatCount;
-	vkGetPhysicalDeviceSurfaceFormatsKHR(device, *this->surface, &formatCount, nullptr);
+	vkGetPhysicalDeviceSurfaceFormatsKHR(device, *this->surface->Get(), &formatCount, nullptr);
 	if (formatCount != 0)
 	{
 		details.formats.resize(formatCount);
-		vkGetPhysicalDeviceSurfaceFormatsKHR(device, *this->surface, &formatCount, details.formats.data());
+		vkGetPhysicalDeviceSurfaceFormatsKHR(device, *this->surface->Get(), &formatCount, details.formats.data());
 	}
 
 	uint32_t presentModeCount;
-	vkGetPhysicalDeviceSurfacePresentModesKHR(device, *this->surface, &presentModeCount, nullptr);
+	vkGetPhysicalDeviceSurfacePresentModesKHR(device, *this->surface->Get(), &presentModeCount, nullptr);
 	if (presentModeCount != 0)
 	{
 		details.presentModes.resize(presentModeCount);
-		vkGetPhysicalDeviceSurfacePresentModesKHR(device, *this->surface, &presentModeCount, details.presentModes.data());
+		vkGetPhysicalDeviceSurfacePresentModesKHR(device, *this->surface->Get(), &presentModeCount, details.presentModes.data());
 	}
 
 	return details;
